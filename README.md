@@ -1,3 +1,6 @@
+
+![sanic-adapters-200](https://github.com/user-attachments/assets/c68e7b2a-7c69-4056-b5b2-17c5fd92304c)
+
 # Sanic Adapters
 Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator
 instead of defining multiple resources or registering each route, resource, and blueprint in separate calls.
