@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "sanic-adapters"
+version = "0.1.0"
+description = "Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator instead of defining multiple resources or registering each route, resource, and blueprint in separate calls."
+authors = ["Michał Ligus <maveilthain@gmail.com>"]
+license = "BSD 3-Clause License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sanic = "^24.12.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+hypothesis = "^6.123.2"
+black = "^24.10.0"
+isort = "^5.13.2"
+mypy = "^1.14.1"
+flake8 = "^7.1.1"
+ruff = "^0.8.5"
+flake8-pyproject = "^1.2.3"
+autoflake = "^2.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py312']
+include = '\.pyi?$'
+extend-exclude = '''
+(
+   \.idea
+  | \.git
+  | \__pycache__
+)
+'''
+
+[tool.flake8]
+exclude = ['.idea', '.vscode', '.git', '__pycache__']
+max-line-length = 120
+extend-ignore = ["E203", "E402", "E701"]
+#per-file-ignores = [
+#    'first_file.py:W291,W293',
+#    'second_file.py:W291',
+#]
+
+[tool.autoflake]
+remove-all-unused-imports = true
+in-place = true
+exclude = ['.idea', '.postman', '.git', '__pycache__']
+
+[tool.ruff]
+exclude = ['.idea', '.postman', '.git', '__pycache__']
+target-version = "py312"
+line-length=120
+
+[tool.ruff.lint]
+ignore = ["E402"]
