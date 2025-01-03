@@ -7,18 +7,18 @@ from pytest import mark, raises
 from sanic.constants import HTTP_METHODS
 from typing_extensions import Callable
 
-from sanic_adapters.routing import Route
+from sanic_adapters.resources import RESTResource
+from sanic_adapters.routing import Route, Routing
 
 
 class TestRoute:
-    @mark.parametrize(
-        "name",
-        [
-            integers().example(),
-            text(max_size=0).example(),
-            booleans().example(),
-            floats().example(),
-            lists(one_of(integers(), booleans(), floats(), text())).example(),
+    @given(
+        name=one_of(
+            integers(),
+            text(max_size=0),
+            booleans(),
+            floats(),
+            lists(one_of(integers(), booleans(), floats(), text())),
             sets(
                 one_of(
                     integers(),
@@ -26,7 +26,7 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
+            ),
             tuples(
                 one_of(
                     integers(),
@@ -34,27 +34,26 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
-        ],
+            ),
+        ),
     )
     def test_name_passed_with_wrong_type_to_route_when_is_string_than_route_raises_value_error(self, name: str | int):
         with raises(ValueError):
             Route(name=name, path="/test")
 
-    @mark.parametrize("name", [text(min_size=1).example()])
+    @given(name=text(min_size=1))
     def test_name_passed_correct_type_to_route_when_is_string_than_route_returns_string(self, name: str | int):
         route = Route(name=name, path="/test")
 
         assert route.name == name and isinstance(route.name, str), "Name must be string"
 
-    @mark.parametrize(
-        "path",
-        [
-            integers().example(),
-            text(max_size=0).example(),
-            booleans().example(),
-            floats().example(),
-            lists(one_of(integers(), booleans(), floats(), text())).example(),
+    @given(
+        path=one_of(
+            integers(),
+            text(max_size=0),
+            booleans(),
+            floats(),
+            lists(one_of(integers(), booleans(), floats(), text())),
             sets(
                 one_of(
                     integers(),
@@ -62,7 +61,7 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
+            ),
             tuples(
                 one_of(
                     integers(),
@@ -70,8 +69,8 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
-        ],
+            ),
+        ),
     )
     def test_path_passed_with_wrong_type_to_route_when_is_string_than_route_raises_value_error(self, path: str | int):
         with raises(ValueError):
@@ -82,20 +81,21 @@ class TestRoute:
         route = Route(name="x", path=path)
         print(f"[ DEBUG ] {path}")
 
-        assert route.path == path and isinstance(route.path, str) and re.match("/[A-Za-z0-9]*", route.path), "Path must be valid string"
+        assert (
+            route.path == path and isinstance(route.path, str) and re.match("/[A-Za-z0-9]*", route.path)
+        ), "Path must be valid string"
 
     def test_when_only_required_fields_are_passed_then_method_field_are_not_set_by_default(self):
         route = Route(name="x", path="/test")
         assert route.method is None, "Method is set by default"
 
-    @mark.parametrize(
-        "method",
-        [
-            integers().example(),
-            text().example(),
-            booleans().example(),
-            floats().example(),
-            lists(one_of(integers(), booleans(), floats(), text())).example(),
+    @given(
+        method=one_of(
+            integers(),
+            text(),
+            booleans(),
+            floats(),
+            lists(one_of(integers(), booleans(), floats(), text())),
             sets(
                 one_of(
                     integers(),
@@ -103,7 +103,7 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
+            ),
             tuples(
                 one_of(
                     integers(),
@@ -111,8 +111,8 @@ class TestRoute:
                     floats(),
                     text(),
                 ),
-            ).example(),
-        ],
+            ),
+        ),
     )
     def test_when_incorrect_method_passed_then_route_raises_exception(self, method: str):
         with raises(ValueError):
@@ -151,3 +151,11 @@ class TestRoute:
         assert route.function.path == "/test", "Expected route.function has path, but got exception"
         assert route.function.method == "GET", "Expected route.function has method, but got exception"
         assert route.function.class_name == "string", "Expected route.function has class_name, but got exception"
+
+class TestRouting:
+    def test_given_route_when_register_by_routing_then_resource_and_route_will_be_added(self):
+        route = Route(name="test", path="/test", method="GET", function=lambda x: x, class_name="MyResource")
+        Routing.register(route)
+
+        assert route in Routing.routes, "Expected route to be registered, but route not found in Routing.routes"
+        assert Routing.route_parts, f"Expected route parts to be registered, but got {Routing.route_parts=}"
