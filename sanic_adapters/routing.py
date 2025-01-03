@@ -1,8 +1,10 @@
+import logging
 from dataclasses import dataclass, field
 from functools import reduce
 from typing import Dict, List
 
 from sanic import Blueprint
+from sanic.base.root import VALID_NAME
 from sanic.constants import HTTP_METHODS
 
 
@@ -47,11 +49,14 @@ class Routing:
 
     @classmethod
     def register(cls, route: Route) -> None:
-        class_name = str(route.function.__qualname__).replace(f".{route.function.__name__}", "")
+        qual_name = str(route.function.__qualname__).split(".")[-2]
+        class_name =  qual_name.replace(f".{route.function.__name__}", "")
+        if not VALID_NAME.match(class_name):
+            class_name = route.class_name
         name = reduce(lambda x, y: x + ("_" if y.isupper() else "") + y, class_name).lower()
         url_path = f"{str(name).replace("_", "-")}"
         resource = RoutePart(url_prefix=url_path, name=str(name))
         if class_name not in cls.route_parts:
             cls.route_parts[class_name] = resource
 
-        Routing.routes.append(route)
+        cls.routes.append(route)
