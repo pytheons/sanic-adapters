@@ -43,7 +43,3 @@ class Route:
 class RoutePart(Blueprint): ...
 
 class RESTResource(HTTPMethodView): ...
-
-class URLSpaceFormat(Enum):
-    KEBAB = "-"
-    UNDERSCORE = "_"
