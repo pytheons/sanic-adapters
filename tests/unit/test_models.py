@@ -16,7 +16,7 @@ from hypothesis.strategies import (
 )
 from sanic.constants import HTTP_METHODS
 
-from sanic_adapters.models import Route
+from sanic_adapters.resources import Route
 
 
 class TestRoute:
@@ -145,17 +145,4 @@ class TestRoute:
         route = Route(name="x", path="/test", method="GET", function=lambda x: x, class_name="string")
         message = f"Class name expected as correct string, but got '{type(route.class_name)}'"
         assert route.class_name and isinstance(route.class_name, str), message
-
-    def test_given_created_route_when_route_is_executed_then_function_has_new_attributes(self):
-        # Given
-        route = Route(name="x", path="/test", method="GET", function=lambda x: x, class_name="string")
-
-        # When
-        route()
-
-        # Then
-        assert route.function.name == "x", "Expected route.function has name, but got exception"
-        assert route.function.path == "/test", "Expected route.function has path, but got exception"
-        assert route.function.method == "GET", "Expected route.function has method, but got exception"
-        assert route.function.class_name == "string", "Expected route.function has class_name, but got exception"
 

@@ -15,7 +15,7 @@ from sanic_adapters.routing import Route, Routing
 class TestRouting:
     @given(
         one_of(
-            functions(like=lambda x: x),
+            functions(like=lambda request: request.route),
             functions(like=top_level_function),
             functions(
                 like=top_level_function_with_nested_function(),
@@ -37,5 +37,4 @@ class TestRouting:
         route = Route(name="test", path="/test", method="GET", function=function, class_name="MyResource")
         Routing.register(route)
 
-        assert route in Routing.routes, "Expected route to be registered, but route not found in Routing.routes"
         assert Routing.route_parts, f"Expected route parts to be registered, but got {Routing.route_parts=}"

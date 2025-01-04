@@ -3,7 +3,7 @@ from typing import Callable
 
 from sanic.base.root import VALID_NAME
 
-from sanic_adapters.models import Route
+from sanic_adapters.resources import Route
 
 
 class Formatters:
