@@ -1,16 +1,15 @@
-from functools import reduce
 from typing import Type
 
 from sanic_adapters.formatters import Formatters
-from sanic_adapters.models import URLSpaceFormat
 from sanic_adapters.resources import (
     RESTResource,
 )
 from sanic_adapters.routing import (
+    Route,
     RoutePart,
     Routing,
-    Route
 )
+
 
 class ResourceOverride:
     def __init__(self, path: str):
