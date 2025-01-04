@@ -33,8 +33,6 @@ class RESTFramework:
             resource: RESTResource | type = type(type_name, (RESTResource,), {str(methods[0]).lower(): route.function})
             args = inspect.signature(route.function)
 
-            print(f"[ DEBUG ] {class_name} -> {type_name}")
-
             if 'self' not in args.parameters:
                 Routing.route_parts[class_name].add_route(route.function, route.path, name=route.name, methods=methods)
                 continue
