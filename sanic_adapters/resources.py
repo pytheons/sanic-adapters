@@ -3,6 +3,7 @@ from dataclasses import (
     field,
 )
 from enum import Enum
+from typing import Callable
 
 from sanic import Blueprint
 from sanic.constants import HTTP_METHODS
@@ -29,9 +30,12 @@ class Route:
             assert isinstance(self.path, str), "Path must be a valid string"
 
             assert self.method is None or (
-                self.method and isinstance(self.method, str)
+                isinstance(self.method, str)
                 and self.method in HTTP_METHODS
             ), "Method must be a valid string and valid HTTP method"
+
+            assert self.function is None or isinstance(self.function, Callable), "Function must be a valid callable"
+            assert self.class_name is None or isinstance(self.class_name, str), "Class name must be a valid string"
         except AssertionError as exception:
             raise ValueError(exception)
 
