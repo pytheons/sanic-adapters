@@ -11,14 +11,14 @@ from typing import (
     List,
 )
 
-from sanic_adapters.routing import (
+from sanic_adapters.models import (
+    RESTResource,
     RoutePart,
+)
+from sanic_adapters.routing import (
     Routing,
 )
 from sanic.views import HTTPMethodView
-
-
-class RESTResource(HTTPMethodView): ...
 
 class RESTFramework:
     @classmethod
