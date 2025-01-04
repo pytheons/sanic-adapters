@@ -1,32 +1,32 @@
-def top_level_function():
+def top_level_function(request):
     return True
 
 def top_level_function_with_nested_function():
-    def second_level_function():
+    def second_level_function(request):
         return True
 
     return second_level_function
 
 def nested_3_layers_function():
     def nested_2_level_function():
-        def nested_3_level_function():
+        def nested_3_level_function(request):
             return True
         return nested_3_level_function
     return nested_2_level_function()
 
 class Examples(object):
-    def class_method(self):
+    def class_method(self, request):
         return f"{self.__class__.__name__}"
 
     def class_method_with_nested_function(self):
-        def wrapper():
+        def wrapper(request):
             return f"{self.__class__.__name__}"
 
         return wrapper
 
     def class_method_with_nested_class(self):
         class NestedClass:
-            def nested_method_in_nested_class(self):
+            def nested_method_in_nested_class(self, request):
                 return f"{self.__class__.__name__}"
 
         return NestedClass.nested_method_in_nested_class
@@ -34,7 +34,7 @@ class Examples(object):
     def class_method_with_nested_class_with_nested_function(self):
         class NestedClassWithNestedFunction:
             def nested_method_in_nested_class_with_nested_function(self):
-                def wrapper():
+                def wrapper(request):
                     return f"{self.__class__.__name__}"
                 return wrapper
 
