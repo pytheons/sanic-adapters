@@ -1,6 +1,8 @@
 from functools import reduce
 from typing import Type
 
+from sanic_adapters.formatters import Formatters
+from sanic_adapters.models import URLSpaceFormat
 from sanic_adapters.resources import (
     RESTResource,
 )
@@ -15,7 +17,7 @@ class ResourceOverride:
         self.path = path
 
     def __call__(self, cls: Type[RESTResource]):
-        name = reduce(lambda x, y: x + ('_' if y.isupper() else '') + y, cls.__name__).lower()
+        name = Formatters.to_underscore(cls.__name__)
         Routing.route_parts[cls.__name__] = RoutePart(url_prefix=self.path, name=str(name))
         return cls
 
