@@ -80,7 +80,6 @@ class TestRoute:
     @given(path=from_regex(r"^/[A-Za-z0-9/]+", fullmatch=True))
     def test_path_passed_correct_type_to_route_when_is_string_than_route_returns_string(self, path: str | int):
         route = Route(name="x", path=path)
-        print(f"[ DEBUG ] {path}")
 
         assert (
             route.path == path and isinstance(route.path, str) and re.match("/[A-Za-z0-9]*", route.path)
