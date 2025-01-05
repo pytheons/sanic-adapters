@@ -1,15 +1,21 @@
-import re
-
-from examples import (Examples, nested_3_layers_function, top_level_function,
-                      top_level_function_with_nested_function)
 from hypothesis import given
-from hypothesis.strategies import (booleans, floats, from_regex, functions,
-                                   integers, lists, one_of, sets, text, tuples)
-from pytest import mark, raises
-from sanic.constants import HTTP_METHODS
+from hypothesis.strategies import (
+    functions,
+    one_of,
+)
 from typing_extensions import Callable
 
-from sanic_adapters.routing import Route, Routing
+from examples.functions import (
+    Examples,
+    nested_3_layers_function,
+    top_level_function,
+    top_level_function_with_nested_function,
+)
+from sanic_adapters.resources import RoutePart
+from sanic_adapters.routing import (
+    Route,
+    Routing,
+)
 
 
 class TestRouting:
@@ -38,3 +44,15 @@ class TestRouting:
         Routing.register(route)
 
         assert Routing.route_parts, f"Expected route parts to be registered, but got {Routing.route_parts=}"
+
+    def test_routing_routes_work_as_same_as_future_routes(self):
+        routes = set()
+        for route_part in Routing.route_parts.values():
+            for route in getattr(route_part,"_future_routes"):
+                routes.add(route)
+            route_part.routes.extend(list(routes))
+            route_part._future_routes = set()
+            break
+
+        assert routes.issubset(set(Routing.routes())), f"Expected routes to be registered, but got {routes=}"
+

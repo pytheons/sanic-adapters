@@ -39,3 +39,5 @@ class Examples(object):
                 return wrapper
 
         return NestedClassWithNestedFunction().nested_method_in_nested_class_with_nested_function()
+
+
