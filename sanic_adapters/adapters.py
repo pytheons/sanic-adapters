@@ -10,6 +10,7 @@ from sanic_adapters.routing import Routing
 
 
 class RESTFramework:
+
     @classmethod
     def autodiscover(cls, package: str) -> List[RoutePart]:
         for module in cls.__list_modules__(package):
@@ -19,9 +20,14 @@ class RESTFramework:
 
     @classmethod
     def __list_modules__(cls, package_name: str):
-        spec = find_spec(package_name)
+        try:
+            spec = find_spec(package_name)
+        except ModuleNotFoundError:
+            spec = None
+
         if spec is None:
             raise PackageNotFoundError(package_name)
+
         pathname = Path(spec.origin).parent
         modules = set()
         with os.scandir(pathname) as entries:

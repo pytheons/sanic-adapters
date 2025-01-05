@@ -18,7 +18,7 @@ class ResourceOverride:
         Routing.route_parts[cls.__name__] = RoutePart(url_prefix=self.path, name=name)
         return cls
 
-def route(name: str, path: str, http_method: str = None):
+def route(name: str, path: str, http_method: str = None) -> callable:
     def route_decorator(handler):
         new_route = Route(name, path, http_method, handler)
         Routing.register(new_route)
