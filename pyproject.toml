@@ -1,6 +1,26 @@
+[project]
+name = "sanic-adapters"
+version = "0.1.1"
+authors = [
+  { name="MichaŁ Ligus", email="maveilthain@gmail.com" },
+]
+description = "Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator instead of defining multiple resources or registering each route, resource, and blueprint in separate calls."
+readme = "README.md"
+requires-python = "^3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: BSD 3-Clause License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/pytheons/sanic-adapters"
+Issues = "https://github.com/pytheons/sanic-adapters/issues"
+
+
 [tool.poetry]
 name = "sanic-adapters"
-version = "0.1.0"
+version = "0.1.1"
 description = "Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator instead of defining multiple resources or registering each route, resource, and blueprint in separate calls."
 authors = ["Michał Ligus <maveilthain@gmail.com>"]
 license = "BSD 3-Clause License"
