@@ -21,3 +21,6 @@ and build the structure required for the Sanic app.
 
 # In future
 - Add other adapters to be less RESTfish or RESTFull
+- Add support for Class Based Websockets 
+- Add support for Class Based Middlewares
+- More Refactors and Simplifications with optimisation 
