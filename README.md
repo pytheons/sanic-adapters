@@ -25,4 +25,4 @@ and build the structure required for the Sanic app.
 - Add support for Class Based Websockets 
 - Add support for Class Based Middlewares
 - More Refactors and Simplifications with optimization 
-- Add support for `sanic-motor` and move to Data Mapper Pattern based on @dataclass decorator
+- Add support for `sanic-motor` and move to Data Mapper Pattern based on @dataclass decorator and Domain Driven Design Mapping
