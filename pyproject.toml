@@ -1,6 +1,6 @@
 [project]
 name = "sanic-adapters"
-version = "0.1.3"
+version = "0.2.1"
 authors = [
   { name="MichaŁ Ligus", email="maveilthain@gmail.com" },
 ]
@@ -20,7 +20,7 @@ Issues = "https://github.com/pytheons/sanic-adapters/issues"
 
 [tool.poetry]
 name = "sanic-adapters"
-version = "0.1.3"
+version = "0.2.1"
 description = "Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator instead of defining multiple resources or registering each route, resource, and blueprint in separate calls."
 authors = ["Michał Ligus <maveilthain@gmail.com>"]
 license = "BSD 3-Clause License"
