@@ -1,4 +1,3 @@
-from sanic_adapters.adapters import RESTFrameworkfrom sanic_adapters.adapters import RESTFrameworkfrom sanic_adapters.resources import RESTResource
 ![sanic-adapters-200](https://github.com/user-attachments/assets/c68e7b2a-7c69-4056-b5b2-17c5fd92304c)
 
 # Sanic Adapters
