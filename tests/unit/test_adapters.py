@@ -7,7 +7,7 @@ from sanic_adapters.routing import Routing
 
 class TestAdapters:
     def test_autodiscover_when_package_is_passed_with_3_routes_then_resources_list_was_returned_with_3_routes(self):
-        resources = RESTFramework.autodiscover("tests.examples.qualnames")
+        resources = RESTFramework.autodiscover("examples.qualnames")
 
         expected_resources = 2
         expected_routes = 3
