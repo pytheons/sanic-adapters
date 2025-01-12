@@ -1,6 +1,6 @@
 [project]
 name = "sanic-adapters"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
   { name="MichaŁ Ligus", email="maveilthain@gmail.com" },
 ]
@@ -20,7 +20,7 @@ Issues = "https://github.com/pytheons/sanic-adapters/issues"
 
 [tool.poetry]
 name = "sanic-adapters"
-version = "0.2.1"
+version = "0.2.2"
 description = "Set of semi-adapters for Sanic framework to autodiscovery routes defined by adapters @route decorator instead of defining multiple resources or registering each route, resource, and blueprint in separate calls."
 authors = ["Michał Ligus <maveilthain@gmail.com>"]
 license = "BSD 3-Clause License"
@@ -45,6 +45,7 @@ flake8 = "^7.1.1"
 ruff = "^0.8.6"
 flake8-pyproject = "^1.2.3"
 autoflake = "^2.3.1"
+coverage = "^7.6.10"
 
 [build-system]
 requires = ["poetry-core"]
@@ -87,9 +88,27 @@ ignore = ["E402"]
 [tool.pytest.ini_options]
 minversion = "8.3.4"
 addopts = "-vvv -p no:warnings"
-#addopts = "-vvv"
 testpaths = [
     "tests",
     "unit",
     "integration",
 ]
+
+[tool.coverage.run]
+branch = false
+
+[tool.coverage.report]
+show_missing = true
+omit = [
+    "*/.local/*",
+    "*__init__*",
+    "*/tests/*",
+    ]
+
+[tool.coverage.paths]
+source = [
+    "sanic_adapters/",
+    ]
+
+[tool.coverage.html]
+directory = ".venv/coverage"

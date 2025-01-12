@@ -15,7 +15,11 @@ class ResourceOverride:
 
     def __call__(self, cls: Type[RESTResource]):
         name = Formatters.to_underscore(cls.__name__)
-        Routing.route_parts[cls.__name__] = RoutePart(url_prefix=self.path, name=name)
+        if not Routing.route_parts[cls.__name__]:
+            Routing.route_parts[cls.__name__] = RoutePart(url_prefix=self.path, name=name)
+            return cls
+
+        Routing.route_parts[cls.__name__].url_prefix = self.path
         return cls
 
 def route(name: str, path: str, http_method: str = None) -> callable:
